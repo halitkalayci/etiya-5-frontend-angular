@@ -17,7 +17,23 @@
   </div>
 </div>
 
-<div class="row">
+<ng-template #loadingSpinner>
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+</ng-template>
+
+<!-- Boolean(isLoading) -->
+<div *ngIf="!!isLoading === false; else loadingSpinner" class="row">
+  <ng-container *ngIf="errorAlertMessage; else productsList">
+    <div
+      class="alert alert-danger"
+      role="alert"
+      [innerText]="errorAlertMessage"
+    >
+      <!-- {{ errorAlertMessage || "null" }} -->
+    </div>
+  </ng-container>
   <!--* unordered list -->
   <!--# Built-in Directive -->
 
@@ -25,33 +41,35 @@
   <!-- <div *ngFor="let product of products"> -->
 
   <!--# Attribute directive -->
-  <ng-template ngFor let-product [ngForOf]="filteredProducts">
-    <!-- Sanal, html tarafında render'lanmayan veya bir etikete karşılık gelmeyen bir etiket olacak. -->
+  <ng-template #productsList>
+    <ng-template ngFor let-product [ngForOf]="filteredProducts">
+      <!-- Sanal, html tarafında render'lanmayan veya bir etikete karşılık gelmeyen bir etiket olacak. -->
 
-    <!--# *ngIf -->
-    <div
-      *ngIf="isProductCardShow(product); else productDiscontinued"
-      [class]="productCardClass"
-    >
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <a href="#" class="btn btn-primary">Add to Cart</a>
-      </div>
-    </div>
-    <!--* list istem -->
-
-    <ng-template #productDiscontinued>
+      <!--# *ngIf -->
       <div
-        class="{{
-          productCardClass
-        }} d-flex justify-content-center align-items-center"
+        *ngIf="isProductCardShow(product); else productDiscontinued"
+        [class]="productCardClass"
       >
-        <p>{{ product.name }} ürünü şuan satılmıyor.</p>
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" class="btn btn-primary">Add to Cart</a>
+        </div>
       </div>
+      <!--* list istem -->
+
+      <ng-template #productDiscontinued>
+        <div
+          class="{{
+            productCardClass
+          }} d-flex justify-content-center align-items-center"
+        >
+          <p>{{ product.name }} ürünü şuan satılmıyor.</p>
+        </div>
+      </ng-template>
     </ng-template>
   </ng-template>
 

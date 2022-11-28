@@ -9,6 +9,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
     ProductListComponent,
     HomePageComponent,
     LoginPageComponent,
+    LoadingSpinnerComponent,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule], // Angular modülleri import edeceğimiz yer
   providers: [], // IoC Container'daki Dependency Injection'ları tanımlar
