@@ -28,5 +28,6 @@ export class ProductsService {
     return this.httpClient.get<Product[]>(this.controllerUrl, {
       params: queryParams,
     });
+    // observe: 'response', //: Http Response tipini döndürür. (response.headers, response.body, response.status)
   }
 }

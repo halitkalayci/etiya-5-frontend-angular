@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { GetListOptionsType } from './../../models/get-list-options';
+import { Pagination } from 'src/app/models/pagination';
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -16,6 +17,11 @@ export class ProductListComponent implements OnInit {
   products!: Product[];
   selectedProductCategoryId: number | null = null;
   searchProductNameInput: string | null = null;
+  pagination: Pagination = {
+    page: 1,
+    pageSize: 9,
+  };
+  lastPage!: number;
   get filteredProducts(): Product[] {
     let filteredProducts = this.products;
     if (!filteredProducts) return [];
@@ -57,7 +63,7 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getProductsList();
+    this.getProductsList({ pagination: this.pagination });
 
     this.getCategoryIdFromRoute();
     this.getSearchProductNameFromRoute();
@@ -65,10 +71,22 @@ export class ProductListComponent implements OnInit {
 
   getProductsList(options?: GetListOptionsType): void {
     this.isLoading = this.isLoading + 1;
+
     //: Subject: Observable'ın bir alt sınıfıdır. Subject'lerin bir özelliği ise, bir Subject üzerinden subscribe olunan herhangi bir yerden next() metodu çağrıldığında, o Subject üzerinden subscribe olan her yerde bu değişiklik görülebilir.
     this.productsService.getList(options).subscribe({
       next: (response) => {
-        this.products = response;
+        //: Etiya projelerinde pagination bilgileri body içerisinde gelmektedir. Direkt atamayı gerçekleştirebiliriz.
+        // this.pagination.page = response.page;
+        // this.pagination.pageSize = response.pageSize;
+        // this.lastPage = response.lastPage;
+        //: Json-server projelerinde pagination bilgileri header içerisinde gelmektedir. Header üzerinden atama yapmamız gerekmektedir. Bu yöntem pek kullanılmayacağı için, bu şekilde geçici bir çözüm ekleyebiliriz.
+        if (response.length < this.pagination.pageSize) {
+          if (response.length === 0)
+            this.pagination.page = this.pagination.page - 1;
+          this.lastPage = this.pagination.page;
+        }
+
+        if (response.length > 0) this.products = response;
         this.isLoading = this.isLoading - 1;
       },
       error: () => {
@@ -123,5 +141,10 @@ export class ProductListComponent implements OnInit {
     this.router.navigate([], {
       queryParams: queryParams,
     });
+  }
+
+  changePage(page: number): void {
+    this.pagination.page = page;
+    this.getProductsList({ pagination: this.pagination });
   }
 }
