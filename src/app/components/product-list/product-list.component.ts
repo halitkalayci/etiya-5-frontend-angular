@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
+import { GetListOptionsType } from './../../models/get-list-options';
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -62,15 +63,13 @@ export class ProductListComponent implements OnInit {
     this.getSearchProductNameFromRoute();
   }
 
-  getProductsList() {
+  getProductsList(options?: GetListOptionsType): void {
     this.isLoading = this.isLoading + 1;
-    // Subject: Observable'ın bir alt sınıfıdır. Subject'lerin bir özelliği ise, bir Subject üzerinden subscribe olunan herhangi bir yerden next() metodu çağrıldığında, o Subject üzerinden subscribe olan her yerde bu değişiklik görülebilir.
-    this.productsService.getList().subscribe({
+    //: Subject: Observable'ın bir alt sınıfıdır. Subject'lerin bir özelliği ise, bir Subject üzerinden subscribe olunan herhangi bir yerden next() metodu çağrıldığında, o Subject üzerinden subscribe olan her yerde bu değişiklik görülebilir.
+    this.productsService.getList(options).subscribe({
       next: (response) => {
-        // setTimeout(() => {
         this.products = response;
         this.isLoading = this.isLoading - 1;
-        // }, 3000);
       },
       error: () => {
         this.errorAlertMessage = "Server Error. Couldn't get products list.";
