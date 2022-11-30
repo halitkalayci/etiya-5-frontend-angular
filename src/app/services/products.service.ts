@@ -19,10 +19,13 @@ export class ProductsService {
   //: null ilgili değişkenin tanımlanmış olduğunu belirtir fakat null değer geçildiği söyleyen. Programcılar geçiyoruz.
   // { pagination }: { pagination?: Pagination } = {} okuması biraz zor olduğu için tercih etmedik.
   getList(options?: GetListOptionsType): Observable<Product[]> {
-    const queryParams: any = {};
+    let queryParams: any = {};
     if (options?.pagination) {
       queryParams['_page'] = options.pagination.page;
       queryParams['_limit'] = options.pagination.pageSize;
+    }
+    if (options?.filters) {
+      queryParams = { ...queryParams, ...options.filters };
     }
 
     return this.httpClient.get<Product[]>(this.controllerUrl, {

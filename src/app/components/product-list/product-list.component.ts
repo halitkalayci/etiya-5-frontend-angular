@@ -15,42 +15,44 @@ export class ProductListComponent implements OnInit {
   productCardClass: string = 'card col-3 ms-3 mb-3';
 
   products!: Product[];
-  selectedProductCategoryId: number | null = null;
+  // selectedProductCategoryId: number | null = null;
   searchProductNameInput: string | null = null;
   pagination: Pagination = {
     page: 1,
     pageSize: 9,
   };
   lastPage!: number;
-  get filteredProducts(): Product[] {
-    let filteredProducts = this.products;
-    if (!filteredProducts) return [];
+  filters: any = {};
+  //# Client Side Filter
+  // get filteredProducts(): Product[] {
+  //   let filteredProducts = this.products;
+  //   if (!filteredProducts) return [];
 
-    if (this.selectedProductCategoryId)
-      filteredProducts = filteredProducts.filter(
-        (p) => p.categoryId === this.selectedProductCategoryId
-      );
+  //   if (this.selectedProductCategoryId)
+  //     filteredProducts = filteredProducts.filter(
+  //       (p) => p.categoryId === this.selectedProductCategoryId
+  //     );
 
-    if (this.searchProductNameInput)
-      filteredProducts = filteredProducts.filter(
-        (p) =>
-          p.name
-            .toLowerCase()
-            .includes(
-              this.searchProductNameInput !== null
-                ? this.searchProductNameInput.toLowerCase()
-                : ''
-            ) //: Non-null assertion operator: Sol tarafın null veya undefined olmadığı garanti edilir.
-      );
-    // {
-    //   test: {
-    //     test2: true
-    //   }
-    // }
-    // object.test?.test2 //: Optional chaining: sağ tarafın obje içerisinde bulunmayabileceğini belirtiyoruz.
+  //   if (this.searchProductNameInput)
+  //     filteredProducts = filteredProducts.filter(
+  //       (p) =>
+  //         p.name
+  //           .toLowerCase()
+  //           .includes(
+  //             this.searchProductNameInput !== null
+  //               ? this.searchProductNameInput.toLowerCase()
+  //               : ''
+  //           ) //: Non-null assertion operator: Sol tarafın null veya undefined olmadığı garanti edilir.
+  //     );
+  //   // {
+  //   //   test: {
+  //   //     test2: true
+  //   //   }
+  //   // }
+  //   // object.test?.test2 //: Optional chaining: sağ tarafın obje içerisinde bulunmayabileceğini belirtiyoruz.
 
-    return filteredProducts;
-  }
+  //   return filteredProducts;
+  // }
   isLoading: number = 0;
   errorAlertMessage: string | null = null;
 
@@ -63,8 +65,6 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getProductsList({ pagination: this.pagination });
-
     this.getCategoryIdFromRoute();
     this.getSearchProductNameFromRoute();
   }
@@ -102,11 +102,21 @@ export class ProductListComponent implements OnInit {
   getCategoryIdFromRoute(): void {
     //: route params'ları almak adına activatedRoute.params kullanılır.
     this.activatedRoute.params.subscribe((params) => {
-      if (params['categoryId'])
-        this.selectedProductCategoryId = parseInt(params['categoryId']);
-      else this.selectedProductCategoryId = null;
-      // "10.123" // float/double
-      // "10" // int
+      this.pagination.page = 1;
+      if (params['categoryId']) {
+        // this.selectedProductCategoryId = parseInt(params['categoryId']);
+        this.filters['categoryId'] = parseInt(params['categoryId']);
+      } else {
+        // this.selectedProductCategoryId = null;
+        // filters = { categoryId: 1 }
+        if (this.filters['categoryId']) delete this.filters['categoryId']; //= filters = {}
+        //: delete operatörü, object içerisindeki bir property'i silmek için kullanılır.
+      }
+
+      this.getProductsList({
+        pagination: this.pagination,
+        filters: this.filters,
+      });
     });
   }
 
@@ -145,6 +155,9 @@ export class ProductListComponent implements OnInit {
 
   changePage(page: number): void {
     this.pagination.page = page;
-    this.getProductsList({ pagination: this.pagination });
+    this.getProductsList({
+      pagination: this.pagination,
+      filters: this.filters,
+    });
   }
 }
