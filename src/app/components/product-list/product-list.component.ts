@@ -88,11 +88,11 @@ export class ProductListComponent implements OnInit {
         }
 
         this.products = response;
-        this.isLoading = this.isLoading - 1;
+        if (this.isLoading > 0) this.isLoading = this.isLoading - 1;
       },
       error: () => {
         this.errorAlertMessage = "Server Error. Couldn't get products list.";
-        this.isLoading = this.isLoading - 1;
+        if (this.isLoading > 0) this.isLoading = this.isLoading - 1;
       },
       complete: () => {
         console.log('completed');
@@ -160,18 +160,14 @@ export class ProductListComponent implements OnInit {
   onSearchProductNameChange(event: any): void {
     // this.searchProductNameInput = event.target.value; //: ngModel'imiz kendisi bu işlemi zaten gerçekleştiriyor.
 
+    this.filters['name_like'] = this.searchProductNameInput;
+    this.resetPagination();
+
     const queryParams: any = {};
     if (this.searchProductNameInput !== '')
       queryParams['searchProductName'] = this.searchProductNameInput;
     this.router.navigate([], {
       queryParams: queryParams,
-    });
-
-    this.filters['name_like'] = this.searchProductNameInput;
-    this.resetPagination();
-    this.getProductsList({
-      pagination: this.pagination,
-      filters: this.filters,
     });
   }
 
