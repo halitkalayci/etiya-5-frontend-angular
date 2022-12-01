@@ -65,6 +65,7 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = this.isLoading + 2;
     this.getCategoryIdFromRoute();
     this.getSearchProductNameFromRoute();
   }
@@ -81,12 +82,12 @@ export class ProductListComponent implements OnInit {
         // this.lastPage = response.lastPage;
         //: Json-server projelerinde pagination bilgileri header içerisinde gelmektedir. Header üzerinden atama yapmamız gerekmektedir. Bu yöntem pek kullanılmayacağı için, bu şekilde geçici bir çözüm ekleyebiliriz.
         if (response.length < this.pagination.pageSize) {
-          if (response.length === 0)
+          if (response.length === 0 && this.pagination.page > 1)
             this.pagination.page = this.pagination.page - 1;
           this.lastPage = this.pagination.page;
         }
 
-        if (response.length > 0) this.products = response;
+        this.products = response;
         this.isLoading = this.isLoading - 1;
       },
       error: () => {
@@ -114,10 +115,12 @@ export class ProductListComponent implements OnInit {
         //: delete operatörü, object içerisindeki bir property'i silmek için kullanılır.
       }
 
-      this.getProductsList({
-        pagination: this.pagination,
-        filters: this.filters,
-      });
+      if (this.isLoading > 0) this.isLoading = this.isLoading - 1;
+      if (this.isLoading === 0)
+        this.getProductsList({
+          pagination: this.pagination,
+          filters: this.filters,
+        });
     });
   }
 
@@ -128,14 +131,25 @@ export class ProductListComponent implements OnInit {
       if (
         queryParams['searchProductName'] &&
         queryParams['searchProductName'] !== this.searchProductNameInput
-      )
+      ) {
         this.searchProductNameInput = queryParams['searchProductName'];
+        this.filters['name_like'] = this.searchProductNameInput;
+      }
       //# Defensive Programming
       if (
-        !queryParams['searchProductName'] &&
+        queryParams['searchProductName'] === undefined &&
         this.searchProductNameInput !== null
-      )
+      ) {
         this.searchProductNameInput = null;
+        delete this.filters['name_like'];
+      }
+
+      if (this.isLoading > 0) this.isLoading = this.isLoading - 1;
+      if (this.isLoading === 0)
+        this.getProductsList({
+          pagination: this.pagination,
+          filters: this.filters,
+        });
     });
   }
 

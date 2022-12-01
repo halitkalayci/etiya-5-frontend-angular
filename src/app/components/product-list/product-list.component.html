@@ -42,33 +42,41 @@
 
   <!--# Attribute directive -->
   <ng-template #productsList>
-    <ng-template ngFor let-product [ngForOf]="products">
-      <!-- Sanal, html tarafında render'lanmayan veya bir etikete karşılık gelmeyen bir etiket olacak. -->
-
-      <!--# *ngIf -->
-      <div
-        *ngIf="isProductCardShow(product); else productDiscontinued"
-        [class]="productCardClass"
-      >
-        <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="#" class="btn btn-primary">Add to Cart</a>
-        </div>
+    <ng-container *ngIf="products.length === 0; else showProductList">
+      <div class="alert alert-info" role="alert">
+        There is no product with filters.
       </div>
-      <!--* list istem -->
+    </ng-container>
 
-      <ng-template #productDiscontinued>
+    <ng-template #showProductList>
+      <ng-template ngFor let-product [ngForOf]="products">
+        <!-- Sanal, html tarafında render'lanmayan veya bir etikete karşılık gelmeyen bir etiket olacak. -->
+
+        <!--# *ngIf -->
         <div
-          class="{{
-            productCardClass
-          }} d-flex justify-content-center align-items-center"
+          *ngIf="isProductCardShow(product); else productDiscontinued"
+          [class]="productCardClass"
         >
-          <p>{{ product.name }} ürünü şuan satılmıyor.</p>
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+          </div>
         </div>
+        <!--* list istem -->
+
+        <ng-template #productDiscontinued>
+          <div
+            class="{{
+              productCardClass
+            }} d-flex justify-content-center align-items-center"
+          >
+            <p>{{ product.name }} ürünü şuan satılmıyor.</p>
+          </div>
+        </ng-template>
       </ng-template>
     </ng-template>
   </ng-template>
