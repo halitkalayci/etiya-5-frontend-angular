@@ -21,7 +21,7 @@ export class ProductListComponent implements OnInit {
     page: 1,
     pageSize: 9,
   };
-  lastPage!: number;
+  lastPage?: number;
   filters: any = {};
   //# Client Side Filter
   // get filteredProducts(): Product[] {
@@ -103,6 +103,8 @@ export class ProductListComponent implements OnInit {
     //: route params'ları almak adına activatedRoute.params kullanılır.
     this.activatedRoute.params.subscribe((params) => {
       this.pagination.page = 1;
+      this.lastPage = undefined;
+
       if (params['categoryId']) {
         // this.selectedProductCategoryId = parseInt(params['categoryId']);
         this.filters['categoryId'] = parseInt(params['categoryId']);
