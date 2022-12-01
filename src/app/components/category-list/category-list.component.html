@@ -7,16 +7,16 @@
   <!-- *ngFor is a built-in structural directive -->
   <button
     *ngFor="let categoryListItem of categoriesListItems"
-    [routerLink]="
-      categoryListItem.value === null
-        ? '/'
-        : '/category/' + categoryListItem.value
-    "
+    (click)="onSelectedCategory(categoryListItem.value)"
     class="list-group-item text-start"
     [ngClass]="{ active: isSelectedCategory(categoryListItem.value) }"
   >
     <!--* [routerLink]="'category/' + category.id" veya [routerLink]="['category', category.id]" da olabilir.-->
-    <!-- (click)="onSelectedCategory(categoryListItem.value)" -->
+    <!-- [routerLink]="
+      categoryListItem.value === null
+        ? '/'
+        : '/category/' + categoryListItem.value
+    " -->
     <!--: routerLink'lerde başında / olmazsa o anki route path'ine ekleme yapar. routerlink / ile başladığı taktirde alan adının (localhost:4200) sonuna verdiğimiz route path'ini ekleyecek değiştrir.-->
     {{ categoryListItem.label }}
   </button>
