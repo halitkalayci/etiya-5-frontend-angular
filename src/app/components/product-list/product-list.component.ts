@@ -102,8 +102,7 @@ export class ProductListComponent implements OnInit {
   getCategoryIdFromRoute(): void {
     //: route params'ları almak adına activatedRoute.params kullanılır.
     this.activatedRoute.params.subscribe((params) => {
-      this.pagination.page = 1;
-      this.lastPage = undefined;
+      this.resetPagination();
 
       if (params['categoryId']) {
         // this.selectedProductCategoryId = parseInt(params['categoryId']);
@@ -153,6 +152,13 @@ export class ProductListComponent implements OnInit {
     this.router.navigate([], {
       queryParams: queryParams,
     });
+
+    this.filters['name_like'] = this.searchProductNameInput;
+    this.resetPagination();
+    this.getProductsList({
+      pagination: this.pagination,
+      filters: this.filters,
+    });
   }
 
   changePage(page: number): void {
@@ -161,5 +167,10 @@ export class ProductListComponent implements OnInit {
       pagination: this.pagination,
       filters: this.filters,
     });
+  }
+
+  resetPagination(): void {
+    this.pagination.page = 1;
+    this.lastPage = undefined;
   }
 }
