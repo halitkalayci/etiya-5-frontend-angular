@@ -16,7 +16,11 @@ const routes: Routes = [
       {
         path: 'products', // Parent route
         children: [
-          { path: '', component: DashboardProductsPageComponent },
+          {
+            path: '',
+            pathMatch: 'full',
+            component: DashboardProductsPageComponent,
+          },
           { path: 'add', component: ProductFormPageComponent }, //= dashboard/products/add
           { path: 'edit/:productId', component: ProductFormPageComponent },
         ],

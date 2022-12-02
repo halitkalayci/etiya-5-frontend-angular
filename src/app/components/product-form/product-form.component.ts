@@ -57,9 +57,15 @@ export class ProductFormComponent implements OnInit {
   }
 
   getProductById(productId: number) {
-    this.productsService.getById(productId).subscribe((response) => {
-      this.productToUpdate = response;
-      this.productForm.patchValue(this.productToUpdate); //: Formun içine productToUpdate modelini doldurur.
+    this.productsService.getById(productId).subscribe({
+      next: (response) => {
+        this.productToUpdate = response;
+        this.productForm.patchValue(this.productToUpdate); //: Formun içine productToUpdate modelini doldurur.
+      },
+      error: () => {
+        this.toastrService.error('Product not found');
+        this.router.navigate(['/dashboard', 'products']);
+      },
     });
   }
 
