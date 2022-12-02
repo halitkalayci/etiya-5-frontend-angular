@@ -1,7 +1,7 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 import { ToastrService } from 'ngx-toastr';
@@ -23,7 +23,8 @@ export class ProductFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productsService: ProductsService,
     private toastrService: ToastrService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
     // this.productForm = new FormGroup({
     //   name: new FormControl(''),
@@ -31,18 +32,8 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProductIdFromRoute();
     this.createProductForm();
-  }
-
-  getProductIdFromRoute() {
-    this.activatedRoute.params.subscribe((params) => {
-      if (params['productId']) this.getProductById(params['productId']);
-    });
-  }
-
-  getProductById(productId: number) {
-    throw new Error('Method not implemented.');
+    this.getProductIdFromRoute();
   }
 
   createProductForm(): void {
@@ -59,16 +50,37 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
+  getProductIdFromRoute(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['productId']) this.getProductById(params['productId']);
+    });
+  }
+
+  getProductById(productId: number) {
+    this.productsService.getById(productId).subscribe((response) => {
+      this.productToUpdate = response;
+      this.productForm.patchValue(this.productToUpdate); //: Formun içine productToUpdate modelini doldurur.
+    });
+  }
+
   onProductFormSubmit(): void {
     if (this.productForm.invalid) {
       this.toastrService.error('Please fill in the form correctly');
       return;
     }
 
-    this.add();
+    if (this.isEditting) this.update();
+    else this.add();
   }
 
-  add() {
+  onDeleteProduct(): void {
+    if (confirm('Are you sure you want to delete this product?') === false)
+      return;
+
+    this.delete();
+  }
+
+  add(): void {
     const request: Product = {
       //: Backend'in product add endpoint'ine gönderilecek olan request modeli.
       ...this.productForm.value,
@@ -77,7 +89,34 @@ export class ProductFormComponent implements OnInit {
 
     this.productsService.add(request).subscribe((response) => {
       this.toastrService.success('Product added successfully');
-      console.log(response);
+      this.router.navigate(['/dashboard', 'products', 'edit', response.id]);
+    });
+  }
+
+  update(): void {
+    const request: Product = {
+      id: this.productToUpdate!.id,
+      categoryId: Number.parseInt(this.productForm.value.categoryId),
+      supplierId: Number.parseInt(this.productForm.value.supplierId),
+      quantityPerUnit: this.productForm.value.quantityPerUnit,
+      unitPrice: Number.parseFloat(this.productForm.value.unitPrice),
+      unitsInStock: Number.parseInt(this.productForm.value.unitsInStock),
+      unitsOnOrder: Number.parseInt(this.productForm.value.unitsOnOrder),
+      reorderLevel: Number.parseInt(this.productForm.value.reorderLevel),
+      discontinued: Boolean(this.productForm.value.discontinued),
+      name: this.productForm.value.name.trim(),
+    };
+
+    this.productsService.update(request).subscribe((response) => {
+      this.productToUpdate = response;
+      this.toastrService.success('Product updated successfully');
+    });
+  }
+
+  delete(): void {
+    this.productsService.delete(this.productToUpdate!.id).subscribe(() => {
+      this.toastrService.success('Product deleted successfully');
+      this.router.navigate(['/dashboard', 'products']);
     });
   }
 }

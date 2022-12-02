@@ -2,7 +2,6 @@ import { GetListOptionsType } from './../models/get-list-options';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Pagination } from '../models/pagination';
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 
@@ -34,7 +33,24 @@ export class ProductsService {
     // observe: 'response', //: Http Response tipini döndürür. (response.headers, response.body, response.status)
   }
 
+  getById(productId: number): Observable<Product> {
+    return this.httpClient.get<Product>(`${this.controllerUrl}/${productId}`);
+  }
+
   add(request: Product): Observable<Product> {
     return this.httpClient.post<Product>(this.controllerUrl, request);
+  }
+
+  update(request: Product): Observable<Product> {
+    return this.httpClient.put<Product>(
+      `${this.controllerUrl}/${request.id}`,
+      request
+    );
+  }
+
+  delete(productId: number): Observable<Product> {
+    return this.httpClient.delete<Product>(
+      `${this.controllerUrl}/${productId}`
+    );
   }
 }

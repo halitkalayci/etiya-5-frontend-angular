@@ -15,6 +15,7 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ToastrModule } from 'ngx-toastr';
+import { DashboardProductsPageComponent } from './pages/dashboard-products-page/dashboard-products-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
     LoadingSpinnerComponent,
     ProductFormComponent,
     ProductFormPageComponent,
+    DashboardProductsPageComponent,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
   imports: [
     BrowserModule,

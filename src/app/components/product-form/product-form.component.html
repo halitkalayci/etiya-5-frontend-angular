@@ -105,6 +105,15 @@
       Discontinued
     </label>
   </div>
-
-  <button type="submit" class="btn btn-primary w-100">Save</button>
+  <div class="d-flex justify-content-between">
+    <button type="submit" class="btn btn-primary w-25">Save</button>
+    <button
+      *ngIf="isEditting"
+      (click)="onDeleteProduct()"
+      type="button"
+      class="btn btn-danger w-25"
+    >
+      Delete
+    </button>
+  </div>
 </form>
