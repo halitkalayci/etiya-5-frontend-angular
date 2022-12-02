@@ -5,21 +5,106 @@
   <div class="mb-3">
     <label for="nameInput" class="form-label">Name</label>
     <input
-      id="nameInput"
+      formControlName="name"
       type="text"
+      id="nameInput"
       class="form-control"
       placeholder="Enter product name"
     />
   </div>
 
   <div class="mb-3">
-    <label for="categoryInput" class="form-label">Category Id</label>
+    <label for="categoryInput" class="form-label">Category</label>
     <input
-      id="categoryInput"
+      formControlName="categoryId"
       type="number"
+      id="categoryInput"
       class="form-control"
       placeholder="Enter category id"
     />
   </div>
+
+  <div class="mb-3">
+    <label for="supplierInput" class="form-label">Supplier</label>
+    <input
+      formControlName="supplierId"
+      type="number"
+      id="supplierInput"
+      class="form-control"
+      placeholder="Enter supplier id"
+    />
+  </div>
+
   <!--TODO: Select Menu ile category'leri opsiyonlar olarak listlemek ve seçtiği category'in id'sini kaydetmek -->
+
+  <div class="mb-3">
+    <label for="quantityPerUnitInput" class="form-label"
+      >Quantity Per Unit</label
+    >
+    <input
+      formControlName="quantityPerUnit"
+      type="text"
+      id="quantityPerUnitInput"
+      class="form-control"
+      placeholder="Enter quantity per unit"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="unitPriceInput" class="form-label">Unit Price</label>
+    <input
+      formControlName="unitPrice"
+      type="number"
+      id="unitPriceInput"
+      class="form-control"
+      placeholder="Enter unit price"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="unitsInStockInput" class="form-label">Units In Stock</label>
+    <input
+      formControlName="unitsInStock"
+      type="number"
+      id="unitsInStockInput"
+      class="form-control"
+      placeholder="Enter units in stock"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="unitsOnOrderInput" class="form-label">Units On Order</label>
+    <input
+      formControlName="unitsOnOrder"
+      type="number"
+      id="unitsOnOrderInput"
+      class="form-control"
+      placeholder="Enter units on order"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="reorderLevelInput" class="form-label">Reorder Level</label>
+    <input
+      formControlName="reorderLevel"
+      type="number"
+      id="reorderLevelInput"
+      class="form-control"
+      placeholder="Enter reorder level"
+    />
+  </div>
+
+  <div class="mb-3 form-check">
+    <input
+      formControlName="discontinued"
+      type="checkbox"
+      id="discontinuedInput"
+      class="form-check-input"
+    />
+    <label class="form-check-label" for="discontinuedInput">
+      Discontinued
+    </label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>

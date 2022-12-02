@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Product } from 'src/app/models/product';
 
@@ -16,13 +16,22 @@ export class ProductFormComponent implements OnInit {
     //   name: new FormControl(''),
     // });
   }
+
   ngOnInit(): void {
     this.createProductForm();
   }
+
   createProductForm() {
     this.productForm = this.formBuilder.group({
-      name: [''],
-      categoryId: [''],
+      supplierId: [0, Validators.min(1)],
+      categoryId: [0, Validators.min(1)],
+      quantityPerUnit: ['', Validators.required],
+      unitPrice: [0, Validators.min(0)],
+      unitsInStock: [0, Validators.min(0)],
+      unitsOnOrder: ['', Validators.min(0)],
+      reorderLevel: ['', Validators.min(0)],
+      discontinued: [false],
+      name: ['', [Validators.required, Validators.minLength(2)]], //: array, form control'ün parametrelerini temsil eder. 1. eleman default değer, 2. eleman validators
     });
   }
 }
