@@ -49,7 +49,15 @@ export class ProductFormComponent implements OnInit {
   }
 
   add() {
-    //todo: product service yardımıyla ekleme
-    throw new Error('Method not implemented.');
+    const request: Product = {
+      //: Backend'in product add endpoint'ine gönderilecek olan request modeli.
+      ...this.productForm.value,
+      name: this.productForm.value.name.trim(), //= ...this.productForm.value ile gelen 'name' değerinin üzerin tekrar yazıyoruz (overwrite).
+    };
+
+    this.productsService.add(request).subscribe((response) => {
+      window.alert('Product added');
+      console.log(response);
+    });
   }
 }

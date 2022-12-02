@@ -33,4 +33,8 @@ export class ProductsService {
     });
     // observe: 'response', //: Http Response tipini döndürür. (response.headers, response.body, response.status)
   }
+
+  add(request: Product): Observable<Product> {
+    return this.httpClient.post<Product>(this.controllerUrl, request);
+  }
 }
