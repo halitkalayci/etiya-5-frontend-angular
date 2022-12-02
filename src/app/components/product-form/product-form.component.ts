@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 import { ToastrService } from 'ngx-toastr';
@@ -12,11 +13,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProductFormComponent implements OnInit {
   productForm!: FormGroup;
+  productToUpdate: Product | null = null;
+
+  get isEditting(): boolean {
+    return this.productToUpdate !== null;
+  }
 
   constructor(
     private formBuilder: FormBuilder,
     private productsService: ProductsService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private activatedRoute: ActivatedRoute
   ) {
     // this.productForm = new FormGroup({
     //   name: new FormControl(''),
@@ -24,7 +31,18 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getProductIdFromRoute();
     this.createProductForm();
+  }
+
+  getProductIdFromRoute() {
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['productId']) this.getProductById(params['productId']);
+    });
+  }
+
+  getProductById(productId: number) {
+    throw new Error('Method not implemented.');
   }
 
   createProductForm(): void {
