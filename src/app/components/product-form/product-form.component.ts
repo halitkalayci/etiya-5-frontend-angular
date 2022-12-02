@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-form',
@@ -14,7 +15,8 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private toastrService: ToastrService
   ) {
     // this.productForm = new FormGroup({
     //   name: new FormControl(''),
@@ -41,7 +43,7 @@ export class ProductFormComponent implements OnInit {
 
   onProductFormSubmit(): void {
     if (this.productForm.invalid) {
-      window.alert('Form is invalid');
+      this.toastrService.error('Please fill in the form correctly');
       return;
     }
 
@@ -56,7 +58,7 @@ export class ProductFormComponent implements OnInit {
     };
 
     this.productsService.add(request).subscribe((response) => {
-      window.alert('Product added');
+      this.toastrService.success('Product added successfully');
       console.log(response);
     });
   }
