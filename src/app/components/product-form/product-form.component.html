@@ -1,7 +1,7 @@
 <h1 class="display-6">Product Form</h1>
 
 <!--# Reactive Form -->
-<form [formGroup]="productForm">
+<form [formGroup]="productForm" (submit)="onProductFormSubmit()">
   <div class="mb-3">
     <label for="nameInput" class="form-label">Name</label>
     <input
@@ -106,5 +106,5 @@
     </label>
   </div>
 
-  <button type="submit" class="btn btn-primary">Save</button>
+  <button type="submit" class="btn btn-primary w-100">Save</button>
 </form>
