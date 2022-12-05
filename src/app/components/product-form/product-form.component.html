@@ -15,13 +15,14 @@
 
   <div class="mb-3">
     <label for="categoryInput" class="form-label">Category</label>
-    <input
-      formControlName="categoryId"
-      type="number"
-      id="categoryInput"
-      class="form-control"
-      placeholder="Enter category id"
-    />
+    <select class="form-select" formControlName="categoryId" id="categoryInput">
+      <option disabled value="0">Seçiniz</option>
+      <!-- Display Name - Shown Name -->
+      <!-- Kategorileri al, option'da iterate et ve valuesına idsini, display nameine nameini yazdır -->
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </option>
+    </select>
   </div>
 
   <div class="mb-3">

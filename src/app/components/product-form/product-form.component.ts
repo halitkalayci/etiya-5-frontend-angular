@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from 'src/app/models/category';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
   selector: 'app-product-form',
@@ -14,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ProductFormComponent implements OnInit {
   productForm!: FormGroup;
   productToUpdate: Product | null = null;
-
+  categories: Category[] = [];
   get isEditting(): boolean {
     return this.productToUpdate !== null;
   }
@@ -24,7 +26,8 @@ export class ProductFormComponent implements OnInit {
     private productsService: ProductsService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private categoriesService: CategoriesService
   ) {
     // this.productForm = new FormGroup({
     //   name: new FormControl(''),
@@ -32,8 +35,14 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCategories();
     this.createProductForm();
     this.getProductIdFromRoute();
+  }
+  getCategories(): void {
+    this.categoriesService.getList().subscribe((response: Category[]) => {
+      this.categories = response;
+    });
   }
 
   createProductForm(): void {
@@ -90,6 +99,7 @@ export class ProductFormComponent implements OnInit {
     const request: Product = {
       //: Backend'in product add endpoint'ine gönderilecek olan request modeli.
       ...this.productForm.value,
+      categoryId: Number(this.productForm.value.categoryId), // ilgili categoryId'i al ama numerik olarak yazdır.
       name: this.productForm.value.name.trim(), //= ...this.productForm.value ile gelen 'name' değerinin üzerin tekrar yazıyoruz (overwrite).
     };
 
