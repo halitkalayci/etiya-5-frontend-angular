@@ -1,6 +1,8 @@
 <h1 class="display-6">Product Form</h1>
 
 <!--# Reactive Form -->
+<!-- Submit eventEmitter'ı form submit olduğunda eşitliğin sağında verilen fonksiyonu haberdar eder
+(çalıştırır) -->
 <form [formGroup]="productForm" (submit)="onProductFormSubmit()">
   <div class="mb-3">
     <label for="nameInput" class="form-label">Name</label>

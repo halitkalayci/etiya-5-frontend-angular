@@ -70,6 +70,13 @@ export class ProductListComponent implements OnInit {
     this.getSearchProductNameFromRoute();
   }
 
+  addToCartClick(product: Product) {
+    console.log(
+      'ProductListComponentden sepete eklenmesi istenen ürün:',
+      product
+    );
+  }
+
   getProductsList(options?: GetListOptionsType): void {
     this.isLoading = this.isLoading + 1;
 

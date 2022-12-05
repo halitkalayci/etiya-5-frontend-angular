@@ -16,6 +16,7 @@ import { ProductFormPageComponent } from './pages/product-form-page/product-form
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardProductsPageComponent } from './pages/dashboard-products-page/dashboard-products-page.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DashboardProductsPageComponent } from './pages/dashboard-products-page/
     ProductFormComponent,
     ProductFormPageComponent,
     DashboardProductsPageComponent,
+    ProductCardComponent,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
   imports: [
     BrowserModule,
