@@ -49,7 +49,11 @@
     </ng-container>
 
     <ng-template #showProductList>
-      <ng-template ngFor let-product [ngForOf]="products">
+      <ng-template
+        ngFor
+        let-product
+        [ngForOf]="products | filterProduct : searchProductNameInput ?? ''"
+      >
         <!-- Sanal, html tarafında render'lanmayan veya bir etikete karşılık gelmeyen bir etiket olacak. -->
 
         <!--# *ngIf -->

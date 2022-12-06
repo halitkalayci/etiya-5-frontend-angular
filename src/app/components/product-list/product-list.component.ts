@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
   searchProductNameInput: string | null = null;
   pagination: Pagination = {
     page: 1,
-    pageSize: 9,
+    pageSize: 3,
   };
   lastPage?: number;
   filters: any = {};
@@ -191,3 +191,12 @@ export class ProductListComponent implements OnInit {
     this.lastPage = undefined;
   }
 }
+
+// filter-product-by-price
+// iki parametre alacak : price ve operator
+// operator gt (greater than) gönderilirse price değeri gelen değerden yüksek ürünler
+// opeartor lt (less than) gönderilirse price değeri gelen değerden düşük ürünler
+// gte (greater than or equals to) price >=
+// lte (less than or equals to) price <=
+// eq (equals) => price ==
+// ikinci parametre opsiyonel olacak, default olarak eq olacak
