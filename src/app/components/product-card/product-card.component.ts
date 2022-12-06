@@ -7,6 +7,7 @@ import { Product } from 'src/app/models/product';
   styleUrls: ['./product-card.component.scss'],
 })
 export class ProductCardComponent {
+  dateNow: Date = new Date();
   @Input() product!: Product;
   @Output() onAddToCartClick = new EventEmitter<Product>();
 

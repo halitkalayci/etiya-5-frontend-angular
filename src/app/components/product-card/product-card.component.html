@@ -3,5 +3,9 @@
   <p class="card-text">
     {{ product.quantityPerUnit }}
   </p>
+  <p>
+    {{ product.unitPrice }}
+  </p>
+  <p>{{ dateNow | date : "M/d/yy" }}</p>
   <a (click)="addToCartClick()" class="btn btn-primary">Add to Cart</a>
 </div>
