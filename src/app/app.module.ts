@@ -18,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DashboardProductsPageComponent } from './pages/dashboard-products-page/dashboard-products-page.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { FilterProductPipe } from './pipes/filter-product.pipe';
+import { FilterProductByPricePipe } from './pipes/filter-product-by-price.pipe';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FilterProductPipe } from './pipes/filter-product.pipe';
     DashboardProductsPageComponent,
     ProductCardComponent,
     FilterProductPipe,
+    FilterProductByPricePipe,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
   imports: [
     BrowserModule,

@@ -17,12 +17,13 @@ export class ProductListComponent implements OnInit {
   products!: Product[];
   // selectedProductCategoryId: number | null = null;
   searchProductNameInput: string | null = null;
+
   pagination: Pagination = {
     page: 1,
     pageSize: 3,
   };
   lastPage?: number;
-  filters: any = {};
+  filters: any = { productFilterPrice: 0 };
   //# Client Side Filter
   // get filteredProducts(): Product[] {
   //   let filteredProducts = this.products;

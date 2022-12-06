@@ -12,6 +12,12 @@
       (change)="onSearchProductNameChange($event)"
       [(ngModel)]="searchProductNameInput"
     />
+    <input
+      type="number"
+      class="form-control"
+      id="productPriceFilterInput"
+      [(ngModel)]="filters.productFilterPrice"
+    />
     <!-- [value]="searchProductNameInput" -->
     <!--: $event ilgili event'in özelliklerinin bulunduğu html tarafından geçilen js objesi angular tarafından geçilecektir. -->
   </div>
@@ -52,7 +58,11 @@
       <ng-template
         ngFor
         let-product
-        [ngForOf]="products | filterProduct : searchProductNameInput ?? ''"
+        [ngForOf]="
+          products
+            | filterProduct : searchProductNameInput ?? ''
+            | filterProductByPrice : filters.productFilterPrice : 'lte'
+        "
       >
         <!-- Sanal, html tarafında render'lanmayan veya bir etikete karşılık gelmeyen bir etiket olacak. -->
 
