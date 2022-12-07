@@ -8,6 +8,7 @@ import { Product } from 'src/app/models/product';
 })
 export class ProductCardComponent {
   dateNow: Date = new Date();
+  color: string = 'yellow';
   @Input() product!: Product;
   @Output() onAddToCartClick = new EventEmitter<Product>();
 
