@@ -13,7 +13,7 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductListComponent implements OnInit {
   productCardClass: string = 'card col-3 ms-3 mb-3';
-
+  priceFilterType: 'gt' | 'lt' | 'gte' | 'lte' | 'eq' = 'eq';
   products!: Product[];
   // selectedProductCategoryId: number | null = null;
   searchProductNameInput: string | null = null;
@@ -71,6 +71,11 @@ export class ProductListComponent implements OnInit {
     this.getSearchProductNameFromRoute();
   }
 
+  onSearchPriceChange(event: any) {
+    if (this.filters.productFilterPrice == null) {
+      this.filters.productFilterPrice = 0;
+    }
+  }
   addToCartClick(product: Product) {
     console.log(
       'ProductListComponentden sepete eklenmesi istenen ürün:',
