@@ -1,0 +1,19 @@
+<table class="table mt-5 mb-5">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categories">
+      <th scope="row">{{ category.id }}</th>
+      <td>{{ category.name }}</td>
+      <td>{{ category.description }}</td>
+    </tr>
+  </tbody>
+</table>
+<button *ngIf="!lastPage" class="btn btn-primary mb-5" (click)="showMore()">
+  Daha Fazla...
+</button>
