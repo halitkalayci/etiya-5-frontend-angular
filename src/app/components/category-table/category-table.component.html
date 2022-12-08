@@ -17,3 +17,34 @@
 <button *ngIf="!lastPage" class="btn btn-primary mb-5" (click)="showMore()">
   Daha Fazla...
 </button>
+
+<nav
+  *ngIf="this.getOptions && this.getOptions.pagination"
+  aria-label="Page navigation example"
+>
+  <ul class="pagination">
+    <li class="page-item">
+      <a
+        (click)="changePage(this.getOptions.pagination.page - 1)"
+        class="page-link"
+        >Previous</a
+      >
+    </li>
+    <li class="page-item" [class.active]="this.getOptions.pagination.page == 1">
+      <a (click)="changePage(1)" class="page-link">1</a>
+    </li>
+    <li class="page-item" [class.active]="this.getOptions.pagination.page == 2">
+      <a (click)="changePage(2)" class="page-link">2</a>
+    </li>
+    <li class="page-item" [class.active]="this.getOptions.pagination.page == 3">
+      <a (click)="changePage(3)" class="page-link">3</a>
+    </li>
+    <li class="page-item">
+      <a
+        (click)="changePage(this.getOptions.pagination.page + 1)"
+        class="page-link"
+        >Next</a
+      >
+    </li>
+  </ul>
+</nav>

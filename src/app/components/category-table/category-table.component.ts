@@ -18,13 +18,18 @@ export class CategoryTableComponent implements OnInit {
     this.getCategories();
   }
 
-  getCategories() {
+  getCategories(clearList: boolean = true) {
     this.categoryService.getList(this.getOptions).subscribe((response) => {
       if (!response || response.length <= 0) {
         this.lastPage = true;
-        return;
       }
-      this.categories = [...this.categories, ...response];
+      if (clearList) {
+        // Her yeni sayfada veriler temizlenir, sayfanın verileri listelenir.
+        this.categories = response;
+      } else {
+        // Yeni sayfada önceki sayfaların verileri silinmez
+        this.categories = [...this.categories, ...response];
+      }
     });
   }
 
@@ -32,6 +37,15 @@ export class CategoryTableComponent implements OnInit {
     if (this.getOptions && this.getOptions.pagination)
       this.getOptions.pagination.page++;
 
-    this.getCategories();
+    this.getCategories(false);
+  }
+
+  changePage(page: number) {
+    if (page <= 0) page = 1;
+    if (page > 3) page = 3;
+    if (this.getOptions && this.getOptions.pagination)
+      this.getOptions.pagination.page = page;
+
+    this.getCategories(true);
   }
 }
