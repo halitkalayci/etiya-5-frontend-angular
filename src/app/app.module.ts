@@ -23,6 +23,7 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { CategoryTableComponent } from './components/category-table/category-table.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
+import { IfNotDirective } from './directives/if-not.directive';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
     CategoryTableComponent,
     TodoListComponent,
     TodoItemComponent,
+    IfNotDirective,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
   imports: [
     BrowserModule,
