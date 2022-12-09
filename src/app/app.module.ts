@@ -21,6 +21,8 @@ import { FilterProductPipe } from './pipes/filter-product.pipe';
 import { FilterProductByPricePipe } from './pipes/filter-product-by-price.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
 import { CategoryTableComponent } from './components/category-table/category-table.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { TodoItemComponent } from './components/todo-item/todo-item.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { CategoryTableComponent } from './components/category-table/category-tab
     FilterProductByPricePipe,
     HighlightDirective,
     CategoryTableComponent,
+    TodoListComponent,
+    TodoItemComponent,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
   imports: [
     BrowserModule,
