@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -24,6 +24,8 @@ import { CategoryTableComponent } from './components/category-table/category-tab
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { IfNotDirective } from './directives/if-not.directive';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { OverlayLoadingComponent } from './components/overlay-loading/overlay-loading.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { IfNotDirective } from './directives/if-not.directive';
     TodoListComponent,
     TodoItemComponent,
     IfNotDirective,
+    OverlayLoadingComponent,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
   imports: [
     BrowserModule,
@@ -55,7 +58,9 @@ import { IfNotDirective } from './directives/if-not.directive';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ], // Angular modülleri import edeceğimiz yer
-  providers: [], // IoC Container'daki Dependency Injection'ları tanımlar
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+  ], // IoC Container'daki Dependency Injection'ları tanımlar
   bootstrap: [AppComponent], // Hangi bileşenin ilk açıldığında çalışacağını belirtir
 })
 export class AppModule {}
