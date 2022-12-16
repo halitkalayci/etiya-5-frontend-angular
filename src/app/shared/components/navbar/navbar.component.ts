@@ -26,6 +26,8 @@ export class NavbarComponent implements OnInit {
         routerLink: '/login',
         isRouterActiveExact: true,
       });
+    } else {
+      // Kullanıcı giriş yapmıştır..
     }
   }
 }
