@@ -1,10 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardProductsPageComponent } from './pages/dashboard-products-page/dashboard-products-page.component';
+import { DashboardProductsPageComponent } from './features/products/pages/dashboard-products-page/dashboard-products-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './shared/pages/login-page/login-page.component';
 import { NgModule } from '@angular/core';
-import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
+import { ProductFormPageComponent } from './features/products/pages/product-form-page/product-form-page.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomePageComponent },

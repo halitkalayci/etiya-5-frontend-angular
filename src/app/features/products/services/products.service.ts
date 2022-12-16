@@ -1,4 +1,4 @@
-import { GetListOptionsType } from './../models/get-list-options';
+import { GetListOptionsType } from '../../../core/models/get-list-options';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

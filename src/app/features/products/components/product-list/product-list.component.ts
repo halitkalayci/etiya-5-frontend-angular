@@ -1,10 +1,10 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { GetListOptionsType } from './../../models/get-list-options';
-import { Pagination } from 'src/app/models/pagination';
-import { Product } from 'src/app/models/product';
-import { ProductsService } from 'src/app/services/products.service';
+import { Product } from 'src/app/features/products/models/product';
+import { ProductsService } from 'src/app/features/products/services/products.service';
+import { GetListOptionsType } from 'src/app/core/models/get-list-options';
+import { Pagination } from 'src/app/core/models/pagination';
 
 @Component({
   selector: 'app-product-list',

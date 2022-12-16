@@ -1,7 +1,7 @@
-import { CategoriesService } from 'src/app/services/categories.service';
+import { CategoriesService } from 'src/app/features/categories/services/categories.service';
 import { Component, OnInit } from '@angular/core';
-import { Category } from 'src/app/models/category';
-import { GetListOptionsType } from 'src/app/models/get-list-options';
+import { Category } from 'src/app/features/categories/models/category';
+import { GetListOptionsType } from 'src/app/core/models/get-list-options';
 
 @Component({
   selector: 'app-category-table',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CategoriesService } from 'src/app/services/categories.service';
+import { CategoriesService } from 'src/app/features/categories/services/categories.service';
 
 @Component({
   selector: 'app-alert',
