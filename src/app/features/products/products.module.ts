@@ -35,6 +35,7 @@ import { DashboardProductsPageComponent } from './pages/dashboard-products-page/
     ProductFormPageComponent,
     FilterProductByPricePipe,
     FilterProductPipe,
+    ProductListComponent,
   ],
 })
 export class ProductsModule {}

@@ -8,5 +8,6 @@ import { CategoryTableComponent } from './components/category-table/category-tab
 @NgModule({
   declarations: [CategoryListComponent, CategoryTableComponent],
   imports: [CommonModule, CategoriesRoutingModule],
+  exports: [CategoryListComponent],
 })
 export class CategoriesModule {}
