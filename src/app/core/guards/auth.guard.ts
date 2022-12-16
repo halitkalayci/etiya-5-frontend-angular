@@ -7,12 +7,13 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -22,7 +23,6 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    this.router.navigateByUrl('/login');
     // kullanıcı giriş yapmış mı? yapmamış mı? kontrol et buna göre true:false döndür.
     // JWT => Json Web Token
     // IP Configuration
@@ -32,6 +32,10 @@ export class AuthGuard implements CanActivate {
     // yok veya süresi geçmiş ise return false
 
     // localStorage
-    return false;
+    if (!this.authService.isAuthenticated) {
+      this.router.navigateByUrl('/login');
+      return false;
+    }
+    return true;
   }
 }
