@@ -1,4 +1,4 @@
-import { IfNotDirective } from './if-not.directive';
+import { IfNotDirective } from '../core/directives/if-not.directive';
 
 describe('IfNotDirective', () => {
   it('should create an instance', () => {

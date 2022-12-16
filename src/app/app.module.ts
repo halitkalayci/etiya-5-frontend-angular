@@ -7,9 +7,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoadingSpinnerComponent } from './core/components/loading-spinner/loading-spinner.component';
+import { LoginPageComponent } from './shared/pages/login-page/login-page.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
@@ -23,19 +23,17 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { CategoryTableComponent } from './components/category-table/category-table.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
-import { IfNotDirective } from './directives/if-not.directive';
-import { LoadingInterceptor } from './interceptors/loading.interceptor';
-import { OverlayLoadingComponent } from './components/overlay-loading/overlay-loading.component';
+import { IfNotDirective } from './core/directives/if-not.directive';
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     CategoryListComponent,
     ProductListComponent,
     HomePageComponent,
-    LoginPageComponent,
-    LoadingSpinnerComponent,
     ProductFormComponent,
     ProductFormPageComponent,
     DashboardProductsPageComponent,
@@ -46,8 +44,6 @@ import { OverlayLoadingComponent } from './components/overlay-loading/overlay-lo
     CategoryTableComponent,
     TodoListComponent,
     TodoItemComponent,
-    IfNotDirective,
-    OverlayLoadingComponent,
   ], // HTML tarafındaki angular bileşenlerini tanımlar
   imports: [
     BrowserModule,
@@ -57,7 +53,10 @@ import { OverlayLoadingComponent } from './components/overlay-loading/overlay-lo
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    SharedModule,
+    CoreModule,
   ], // Angular modülleri import edeceğimiz yer
+  exports: [],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ], // IoC Container'daki Dependency Injection'ları tanımlar
