@@ -25,7 +25,7 @@
           >
         </li>
       </ul>
-      <form class="d-flex" role="search">
+      <form class="d-flex mx-2" role="search">
         <input
           class="form-control me-2"
           type="search"
@@ -34,6 +34,23 @@
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+      <div class="dropdown pl-2">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-cart-shopping"></i> Sepet ({{ cartLength }})
+        </button>
+        <ul class="dropdown-menu">
+          <li *ngFor="let item of cartItems">
+            <a class="dropdown-item"
+              >{{ item.product.name }} - {{ item.quantity }}</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

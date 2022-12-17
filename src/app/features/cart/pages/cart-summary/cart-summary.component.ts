@@ -19,4 +19,8 @@ export class CartSummaryComponent implements OnInit {
       this.cartItems = response;
     });
   }
+
+  removeItem(cartItem: CartItem) {
+    if (cartItem.id) this.cartService.remove(cartItem.id);
+  }
 }

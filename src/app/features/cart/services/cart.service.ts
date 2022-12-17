@@ -28,6 +28,7 @@ export class CartService {
       return;
     }
     // Gelen yeni ürünü direkt sepete ekle..
+    cartItem.id = Math.floor(Math.random() * 9999999);
     this.cartItems.next([...this.cartItems.value, cartItem]);
   }
   remove(id: number) {

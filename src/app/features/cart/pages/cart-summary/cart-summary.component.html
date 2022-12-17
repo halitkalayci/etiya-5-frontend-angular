@@ -15,7 +15,9 @@
         <td>{{ item.quantity }}</td>
         <td>{{ item.product.unitPrice * item.quantity }}</td>
         <td>
-          <button class="btn btn-sm btn-danger">Kaldır</button>
+          <button (click)="removeItem(item)" class="btn btn-sm btn-danger">
+            Kaldır
+          </button>
         </td>
       </tr>
     </tbody>
