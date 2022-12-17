@@ -14,6 +14,11 @@ export class NavbarComponent implements OnInit {
       routerLink: '/',
       isRouterActiveExact: true,
     },
+    {
+      label: 'Sepet',
+      routerLink: '/cart-summary',
+      isRouterActiveExact: true,
+    },
   ];
   constructor(private authService: AuthService) {}
   ngOnInit(): void {

@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { ProductsModule } from './features/products/products.module';
 import { CategoriesModule } from './features/categories/categories.module';
+import { CartModule } from './features/cart/cart.module';
 
 @NgModule({
   declarations: [AppComponent, HomePageComponent], // HTML tarafındaki angular bileşenlerini tanımlar
@@ -29,6 +30,7 @@ import { CategoriesModule } from './features/categories/categories.module';
     CoreModule,
     ProductsModule,
     CategoriesModule,
+    CartModule,
   ], // Angular modülleri import edeceğimiz yer
   exports: [],
   providers: [

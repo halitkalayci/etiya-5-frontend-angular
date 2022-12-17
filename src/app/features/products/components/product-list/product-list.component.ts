@@ -5,6 +5,8 @@ import { Product } from 'src/app/features/products/models/product';
 import { ProductsService } from 'src/app/features/products/services/products.service';
 import { GetListOptionsType } from 'src/app/core/models/get-list-options';
 import { Pagination } from 'src/app/core/models/pagination';
+import { CartService } from 'src/app/features/cart/services/cart.service';
+import { CartItem } from 'src/app/features/cart/models/cartItem';
 
 @Component({
   selector: 'app-product-list',
@@ -62,7 +64,8 @@ export class ProductListComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -77,10 +80,10 @@ export class ProductListComponent implements OnInit {
     }
   }
   addToCartClick(product: Product) {
-    console.log(
-      'ProductListComponentden sepete eklenmesi istenen ürün:',
-      product
-    );
+    // CartItem oluştur..
+    // cartService'den add metodunu çağır..
+    let cartItem: CartItem = { product: product, quantity: 1 };
+    this.cartService.add(cartItem);
   }
 
   getProductsList(options?: GetListOptionsType): void {

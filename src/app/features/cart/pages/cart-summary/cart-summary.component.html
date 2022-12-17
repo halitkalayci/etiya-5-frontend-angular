@@ -1,0 +1,23 @@
+<app-main-layout>
+  <h3 class="title mb-3">Sepet</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Ürün Adı</th>
+        <th scope="col">Adet</th>
+        <th scope="col">Ara Toplam</th>
+        <th scope="col">İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems">
+        <th scope="row">{{ item.product.name }}</th>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.product.unitPrice * item.quantity }}</td>
+        <td>
+          <button class="btn btn-sm btn-danger">Kaldır</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</app-main-layout>
