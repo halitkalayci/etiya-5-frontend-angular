@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { CartItem } from 'src/app/features/cart/models/cartItem';
@@ -26,7 +27,8 @@ export class NavbarComponent implements OnInit {
   cartItems: CartItem[] = [];
   constructor(
     private authService: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.addLoginIfNotAuthenticated();
@@ -55,5 +57,9 @@ export class NavbarComponent implements OnInit {
       return acc + cartItem.quantity;
     }, 0);
     return length;
+  }
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/login');
   }
 }

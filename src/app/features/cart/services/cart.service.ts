@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { CartItem } from '../models/cartItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
+  // initial value => başlangıç değeri = []
   cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
+
+  // initial value yok!!
+  cartItems2: Subject<CartItem[]> = new Subject<CartItem[]>();
   constructor() {}
 
   add(cartItem: CartItem) {
@@ -31,8 +35,10 @@ export class CartService {
     cartItem.id = Math.floor(Math.random() * 9999999);
     this.cartItems.next([...this.cartItems.value, cartItem]);
   }
+
   remove(id: number) {
     // Gelen id değeri ile cartItem ara, bulursan sil..
     this.cartItems.next(this.cartItems.value.filter((i) => i.id != id));
+    // this.cartItems.value sadece ilgili değişkenin anlık değerini okumak için kullanılmalı
   }
 }
