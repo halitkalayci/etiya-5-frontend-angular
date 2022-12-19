@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { CartItem } from '../models/cartItem';
 import { Store } from '@ngrx/store';
 import { SharedState } from 'src/app/shared/store/shared.reducers';
-import { addItemToCart } from 'src/app/shared/store/cart/cart.actions';
+import {
+  addItemToCart,
+  removeItemFromCart,
+} from 'src/app/shared/store/cart/cart.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
+  cartItemModel$: Observable<CartItem[]> = this.store.select(
+    (state) => state.cart
+  );
   // initial value => başlangıç değeri = []
   cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
 
@@ -50,6 +56,6 @@ export class CartService {
     this.store.dispatch(addItemToCart(cartItem));
   }
   removeState(id: number) {
-    // state'i çağır
+    this.store.dispatch(removeItemFromCart({ id }));
   }
 }

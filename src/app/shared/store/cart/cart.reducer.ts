@@ -18,12 +18,15 @@ export const cartReducer = createReducer(
     // eğer state'de aynı id'li ürün varsa quantity arttır..
     let sameProduct = state.find((p) => p.product.id == action.product.id);
     if (sameProduct) {
-      sameProduct.quantity += action.quantity;
-      return [...state.filter((c) => c.id != sameProduct?.id), sameProduct];
+      return [
+        ...state.filter((c) => c.id != sameProduct?.id),
+        { ...sameProduct, quantity: sameProduct.quantity + action.quantity },
+      ];
     }
-    return [...state, action];
+    // READ-ONLY
+    return [...state, { id: Math.floor(Math.random() * 9999999), ...action }];
   }),
   on(removeItemFromCart, (state, action) => {
-    return state;
+    return state.filter((i) => i.id != action.id);
   })
 );
