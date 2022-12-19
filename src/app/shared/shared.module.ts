@@ -10,6 +10,8 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { StoreModule } from '@ngrx/store';
+import { sharedReducers } from './store/shared.reducers';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    StoreModule.forRoot(sharedReducers),
   ],
   exports: [
     AlertComponent,

@@ -15,6 +15,7 @@ import { CoreModule } from './core/core.module';
 import { ProductsModule } from './features/products/products.module';
 import { CategoriesModule } from './features/categories/categories.module';
 import { CartModule } from './features/cart/cart.module';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent, HomePageComponent], // HTML tarafındaki angular bileşenlerini tanımlar
