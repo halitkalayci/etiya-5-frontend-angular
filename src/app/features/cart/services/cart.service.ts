@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { CartItem } from '../models/cartItem';
+import { Store } from '@ngrx/store';
+import { SharedState } from 'src/app/shared/store/shared.reducers';
+import { addItemToCart } from 'src/app/shared/store/cart/cart.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +14,7 @@ export class CartService {
 
   // initial value yok!!
   cartItems2: Subject<CartItem[]> = new Subject<CartItem[]>();
-  constructor() {}
+  constructor(private store: Store<SharedState>) {}
 
   add(cartItem: CartItem) {
     // Sepeti kontrol et, aynı üründen varsa adeti gelen adet kadar arttır.
@@ -40,5 +43,13 @@ export class CartService {
     // Gelen id değeri ile cartItem ara, bulursan sil..
     this.cartItems.next(this.cartItems.value.filter((i) => i.id != id));
     // this.cartItems.value sadece ilgili değişkenin anlık değerini okumak için kullanılmalı
+  }
+
+  addState(cartItem: CartItem) {
+    // action'ı çağırmak için => dispatch
+    this.store.dispatch(addItemToCart(cartItem));
+  }
+  removeState(id: number) {
+    // state'i çağır
   }
 }

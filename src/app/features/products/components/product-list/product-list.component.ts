@@ -83,7 +83,7 @@ export class ProductListComponent implements OnInit {
     // CartItem oluştur..
     // cartService'den add metodunu çağır..
     let cartItem: CartItem = { product: product, quantity: 1 };
-    this.cartService.add(cartItem);
+    this.cartService.addState(cartItem);
   }
 
   getProductsList(options?: GetListOptionsType): void {

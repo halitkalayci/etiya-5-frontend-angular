@@ -9,7 +9,7 @@ import { CartItem } from 'src/app/features/cart/models/cartItem';
 //! unique olmalı!!
 export const addItemToCart = createAction(
   '[Cart] Add Item To Cart',
-  props<{ cartItem: CartItem }>()
+  props<CartItem>()
 );
 /*
 addItemToCart(cartItem:CartItem){}

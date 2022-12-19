@@ -11,9 +11,17 @@ const initialState: CartItem[] = [];
 
 export const cartReducer = createReducer(
   initialState,
-  on(addItemToCart, (state, action) => {
+  on(addItemToCart, (state: CartItem[], action: CartItem) => {
     // store'daki addItemToCart çağırıldında ne istersen yap..
-    return state;
+    console.log(state, action);
+    // state'e yeni gelen action'ı ekle ve yeni state'i dön..
+    // eğer state'de aynı id'li ürün varsa quantity arttır..
+    let sameProduct = state.find((p) => p.product.id == action.product.id);
+    if (sameProduct) {
+      sameProduct.quantity += action.quantity;
+      return [...state.filter((c) => c.id != sameProduct?.id), sameProduct];
+    }
+    return [...state, action];
   }),
   on(removeItemFromCart, (state, action) => {
     return state;
